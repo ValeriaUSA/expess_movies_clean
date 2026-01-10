@@ -1,0 +1,80 @@
+<div class="masthead_navbar_wrapper">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm container-fluid">
+    <!-- Site Logo -->
+    <a class="navbar-brand ms-5" href="#">
+      <img src="/images/logo.png" alt="Site Logo" class="img-fluid" style="max-height:120px;">
+    </a>
+
+    <!-- Responsive toggle button for mobile -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-3 mb-2 mb-lg-0">
+        <!-- Home link -->
+        <li class="nav-item">
+          <a class="nav-link active text-success fw-bold" href="<%= session && session.role == 'ADMIN' ? '/film' : '/' %>">
+            Home
+          </a>
+        </li>
+
+        <!-- Films Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-success fw-bold" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Films
+          </a>
+          <ul class="dropdown-menu border-0 shadow-sm">
+            <!-- Subcategories for films -->
+            <li class="dropdown-submenu dropend">
+              <a class="dropdown-item text-success" href="#">Fiction</a>
+              <ul class="dropdown-menu border-0 shadow-sm">
+                <li><a class="dropdown-item text-success" href="#">Comedy</a></li>
+                <li><a class="dropdown-item text-success" href="#">Romance</a></li>
+              </ul>
+            </li>
+            <li class="dropdown-submenu dropend">
+              <a class="dropdown-item text-success" href="#">Non-Fiction</a>
+              <ul class="dropdown-menu border-0 shadow-sm">
+                <li><a class="dropdown-item text-success" href="#">Biography</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+
+        <!-- About link -->
+        <li class="nav-item">
+          <a class="nav-link text-success fw-bold" href="#">About</a>
+        </li>
+      </ul>
+
+      <!-- Search form -->
+      <form class="d-flex me-3">
+        <input class="form-control me-2 border-success" type="search" placeholder="Search your film" aria-label="Search">
+        <button class="btn btn-success" type="submit">Search</button>
+      </form>
+
+      <div>
+        <% if (session && session.firstname) { %>
+        <!-- User is logged in: show their first and last name -->
+        <span class="btn btn-outline-success me-2">
+          <i class="bi bi-person"></i><%= session.role %>: <%= session.firstname %> <%= session.lastname %>
+        </span>
+        <!-- Logout button -->
+        <a href="/user/logout" class="btn btn-outline-danger">Logout</a>
+        <% } else { %>
+        <!-- User is not logged in: show Login button -->
+        <a href="/user/login" class="btn btn-outline-success me-2">
+          <i class="bi bi-person"></i> Login
+        </a>
+        <% } %>
+        <!-- Favorites button visible only for ABONNE users -->
+        <% if (session && session.role == "ABONNE") { %>
+        <a href="/favorite" class="btn btn-outline-success">
+          <i class="bi bi-cart"></i> Favorites
+        </a>
+        <% } %>
+      </div>
+    </div>
+  </nav>
+</div>
