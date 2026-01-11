@@ -55,9 +55,9 @@ app.get(['/', '/home', '/accueil'], async (req, res) => {
 })
 
 // 404 handler
-app.all("/*", (req, res) => {
-  res.status(404).json({ error: "Route not found" })
-})
+app.use((req, res) => {
+    res.status(404).send("Page not found");
+});
 
 // Server
 const PORT = process.env.PORT || 5555
